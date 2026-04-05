@@ -1,4 +1,3 @@
-%%writefile app.py
 # final_streamlit_yolo_seg_voc.py
 import os
 import numpy as np
@@ -14,10 +13,13 @@ import time
 import cv2
 import shutil
 
+# ==========================================
+# 1. CONFIGURATION & VOC METADATA
+# ==========================================
 MODEL_REGISTRY = {
-    "UNet": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_unet.pth",
-    "DeepLabV3": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_deeplabv3.pth",
-    "YOLO": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_yolo_seg.pt",
+    "UNet": "ckpt_voc_demo_unet.pth",
+    "DeepLabV3": "ckpt_voc_demo_deeplabv3.pth",
+    "YOLO": "ckpt_voc_demo_yolo_seg.pt",
 }
 
 VOC_CLASSES = [
@@ -208,7 +210,7 @@ def yolo_instances_to_class_mask(results, target_h, target_w):
     return class_mask
 
 def plot_yolo_semantic(results, img_padded, alpha=0.6):
-    """Produce UNet/DeepLab\u2011style overlay for YOLO segmentation."""
+    """Produce UNet/DeepLab‑style overlay for YOLO segmentation."""
     img_np = np.array(img_padded) if hasattr(img_padded, "convert") else img_padded.copy()
     H, W = img_np.shape[:2]
     class_mask = yolo_instances_to_class_mask(results, H, W)
@@ -348,7 +350,7 @@ if uploaded and selected_models:
                 try:
                     #img_display = plot_yolo_segmentation(results, img_padded, palette=voc_colors, alpha=alpha)
                     img_display = plot_yolo_semantic(results, img_padded, alpha=alpha)
-
+                    
                 except Exception:
                     img_display = np.array(img_padded).copy()
                     img_display = plot_yolo_with_voc_colors(results, img_display)
