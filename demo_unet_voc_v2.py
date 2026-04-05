@@ -13,12 +13,35 @@ from ultralytics import YOLO
 import time
 import cv2
 import shutil
+import gdown
 
 MODEL_REGISTRY = {
-    "UNet": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_unet.pth",
-    "DeepLabV3": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_deeplabv3.pth",
-    "YOLO": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_yolo_seg.pt",
+    "UNet": "ckpt_voc_demo_unet.pth",
+    "DeepLabV3": "ckpt_voc_demo_deeplabv3.pth",
+    "YOLO": "ckpt_voc_demo_yolo_seg.pt",
 }
+
+DRIVE_URLS = {
+    "YOLO": "https://drive.google.com/uc?id=1EmjxQceFfnOciDXHAHxwk_K7GYd6M3NH",
+    "DeepLabV3": "https://drive.google.com/uc?id=1swtNG6jYdl8uQAcbtthd4RLbb-ilag5p",
+    "UNet": "https://drive.google.com/uc?id=1gFxshDEr6xzhOGFFfJtgsYFbCLysLGET",
+}
+
+def ensure_model_files():
+    """Download model checkpoints from Google Drive if not present locally."""
+    for name, filename in MODEL_REGISTRY.items():
+        if not os.path.exists(filename):
+            url = DRIVE_URLS[name]
+            st.info(f"Downloading {name} weights...")
+            gdown.download(url, filename, quiet=False)
+
+ensure_model_files()
+
+# MODEL_REGISTRY = {
+#     "UNet": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_unet.pth",
+#     "DeepLabV3": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_deeplabv3.pth",
+#     "YOLO": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_yolo_seg.pt",
+# }
 
 VOC_CLASSES = [
     "background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car",

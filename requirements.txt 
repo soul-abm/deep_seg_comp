@@ -1,0 +1,10 @@
+streamlit
+torch
+torchvision
+segmentation-models-pytorch
+ultralytics
+opencv-python
+pillow
+gdown
+numpy
+
