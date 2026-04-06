@@ -1,4 +1,4 @@
-%%writefile app.py
+#%%writefile app.py
 # final_streamlit_yolo_seg_voc.py
 import os
 import numpy as np
@@ -156,6 +156,7 @@ def preprocess_pil(img_pil, size=384):
 def make_overlay(img, mask, alpha=0.45):
     img, mask = img.astype(np.float32), mask.astype(np.float32)
     return np.clip((1 - alpha) * img + alpha * mask, 0, 255).astype(np.uint8)
+
 
 # ==========================================
 # 4. HYBRID LOADER
