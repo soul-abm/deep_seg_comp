@@ -3,7 +3,7 @@ torch
 torchvision
 segmentation-models-pytorch
 ultralytics
-opencv-python
+opencv-python-headless
 pillow
 gdown
 numpy
