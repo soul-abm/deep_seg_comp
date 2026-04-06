@@ -4,7 +4,6 @@ torchvision==0.17.2
 segmentation-models-pytorch==0.3.3
 ultralytics==8.1.0
 opencv-python-headless==4.9.0.80
-opencv-python==0.0.0
 pillow
 gdown
 numpy<2

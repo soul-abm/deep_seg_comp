@@ -1,6 +1,11 @@
 #%%writefile app.py
 # final_streamlit_yolo_seg_voc.py
 import os
+os.environ["OPENCV_VIDEOIO_PRIORITY_MSMF"] = "0"  # disable GUI video backend
+os.environ["QT_QPA_PLATFORM"] = "offscreen"       # force headless mode
+from ultralytics import YOLO
+import cv2
+
 import numpy as np
 import streamlit as st
 import torch
@@ -9,9 +14,9 @@ import torch.nn.functional as F
 from PIL import Image
 import torchvision.transforms.functional as TF
 import segmentation_models_pytorch as smp
-from ultralytics import YOLO
+
 import time
-import cv2
+
 import shutil
 import gdown
 
