@@ -1,11 +1,11 @@
 streamlit
 torch==2.5.1
-torchvision==0.17.2
+torchvision==0.20.1
 segmentation-models-pytorch==0.3.3
 ultralytics==8.4.34
 opencv-python-headless==4.9.0.80
 pillow
 gdown
-numpy<2
+numpy=2.0.2
 
 
