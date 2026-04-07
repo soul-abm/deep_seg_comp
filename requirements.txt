@@ -6,6 +6,6 @@ ultralytics==8.4.34
 opencv-python-headless==4.9.0.80
 pillow
 gdown
-numpy==2.0.2
+numpy<2
 
 
