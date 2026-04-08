@@ -1,4 +1,4 @@
-opencv-python==0.0.opencv-python==0.0.0
+opencv-python==0.0.0
 opencv-python-headless==4.9.0.80
 streamlit==1.56.0
 torch==2.5.1
