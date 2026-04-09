@@ -1,3 +1,4 @@
+-c constraints.txt
 opencv-python-headless==4.8.1.78
 streamlit==1.40.0
 torch==2.0.1

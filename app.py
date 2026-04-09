@@ -1,5 +1,12 @@
 # final_streamlit_yolo_seg_voc.py
+
+# ==========================================
+# HEADLESS MODE - MUST BE FIRST
+# ==========================================
 import os
+os.environ['QT_QPA_PLATFORM'] = 'offscreen'
+os.environ['OPENCV_VIDEOIO_DEBUG'] = '0'
+
 import numpy as np
 import streamlit as st
 import torch
