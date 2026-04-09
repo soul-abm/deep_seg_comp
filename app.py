@@ -18,7 +18,6 @@ import segmentation_models_pytorch as smp
 from ultralytics import YOLO
 import time
 import cv2
-import shutil
 import tempfile
 import gdown
 

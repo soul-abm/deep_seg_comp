@@ -1,0 +1,2 @@
+--no-deps
+ultralytics==8.0.227
