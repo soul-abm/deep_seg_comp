@@ -1,7 +1,7 @@
 -c constraints.txt
 streamlit==1.56.0
-torch==2.5.1
-torchvision==0.20.1
+torch==2.9.1
+torchvision==0.18.1
 segmentation-models-pytorch==0.3.3
 ultralytics==8.4.34
 opencv-python-headless==4.9.0.80
