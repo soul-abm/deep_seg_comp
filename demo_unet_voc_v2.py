@@ -1,11 +1,5 @@
-#%%writefile app.py
 # final_streamlit_yolo_seg_voc.py
 import os
-os.environ["OPENCV_VIDEOIO_PRIORITY_MSMF"] = "0"  # disable GUI video backend
-os.environ["QT_QPA_PLATFORM"] = "offscreen"       # force headless mode
-from ultralytics import YOLO
-import cv2
-
 import numpy as np
 import streamlit as st
 import torch
@@ -14,39 +8,19 @@ import torch.nn.functional as F
 from PIL import Image
 import torchvision.transforms.functional as TF
 import segmentation_models_pytorch as smp
-
+from ultralytics import YOLO
 import time
-
+import cv2
 import shutil
-import gdown
 
+# ==========================================
+# 1. CONFIGURATION & VOC METADATA
+# ==========================================
 MODEL_REGISTRY = {
     "UNet": "ckpt_voc_demo_unet.pth",
     "DeepLabV3": "ckpt_voc_demo_deeplabv3.pth",
     "YOLO": "ckpt_voc_demo_yolo_seg.pt",
 }
-
-DRIVE_URLS = {
-    "YOLO": "https://drive.google.com/uc?id=1EmjxQceFfnOciDXHAHxwk_K7GYd6M3NH",
-    "DeepLabV3": "https://drive.google.com/uc?id=1swtNG6jYdl8uQAcbtthd4RLbb-ilag5p",
-    "UNet": "https://drive.google.com/uc?id=1gFxshDEr6xzhOGFFfJtgsYFbCLysLGET",
-}
-
-def ensure_model_files():
-    """Download model checkpoints from Google Drive if not present locally."""
-    for name, filename in MODEL_REGISTRY.items():
-        if not os.path.exists(filename):
-            url = DRIVE_URLS[name]
-            st.info(f"Downloading {name} weights...")
-            gdown.download(url, filename, quiet=False)
-
-ensure_model_files()
-
-# MODEL_REGISTRY = {
-#     "UNet": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_unet.pth",
-#     "DeepLabV3": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_deeplabv3.pth",
-#     "YOLO": "/content/drive/MyDrive/model_checkpoints/ckpt_voc_demo_yolo_seg.pt",
-# }
 
 VOC_CLASSES = [
     "background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car",
@@ -162,7 +136,6 @@ def make_overlay(img, mask, alpha=0.45):
     img, mask = img.astype(np.float32), mask.astype(np.float32)
     return np.clip((1 - alpha) * img + alpha * mask, 0, 255).astype(np.uint8)
 
-
 # ==========================================
 # 4. HYBRID LOADER
 # ==========================================
@@ -237,7 +210,7 @@ def yolo_instances_to_class_mask(results, target_h, target_w):
     return class_mask
 
 def plot_yolo_semantic(results, img_padded, alpha=0.6):
-    """Produce UNet/DeepLab\u2011style overlay for YOLO segmentation."""
+    """Produce UNet/DeepLab‑style overlay for YOLO segmentation."""
     img_np = np.array(img_padded) if hasattr(img_padded, "convert") else img_padded.copy()
     H, W = img_np.shape[:2]
     class_mask = yolo_instances_to_class_mask(results, H, W)
@@ -377,7 +350,7 @@ if uploaded and selected_models:
                 try:
                     #img_display = plot_yolo_segmentation(results, img_padded, palette=voc_colors, alpha=alpha)
                     img_display = plot_yolo_semantic(results, img_padded, alpha=alpha)
-
+                    
                 except Exception:
                     img_display = np.array(img_padded).copy()
                     img_display = plot_yolo_with_voc_colors(results, img_display)
